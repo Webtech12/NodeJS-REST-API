@@ -14,8 +14,23 @@ MongoClient.connect(connectionURL, {useUnifiedTopology:true}, (err, client) => {
     // database assignment
     const db = client.db(databaseName)
 
-    db.collection('users').insertOne({
-        name: 'test',
-        age: 20
+    // insert one 
+    const obj = {description: 'desc1', completed: false}
+    const obj1 = {description: 'desc2', completed: true}
+    const obj2 = {description: 'desc3', completed: false}
+    // db.collection('users').insertOne(obj, (err, result) => {
+    //     if (err) {
+    //        return console.log(err);
+    //     }
+    //     console.log(result.ops);
+    // })
+
+    // insert many
+    db.collection('tasks').insertMany([obj,obj1,obj2], (err, result) =>{
+        if (err) {
+            return console.log(err);
+        }
+        console.log(result.ops);
     })
+
 })
