@@ -1,6 +1,7 @@
 // require mongo modules
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+// const mongodb = require('mongodb')
+// const MongoClient = mongodb.MongoClient
+const { MongoClient, ObjectID} = require('mongodb')
 
 // connection string
 const connectionURL = 'mongodb://127.0.0.1:27017'
@@ -26,11 +27,17 @@ MongoClient.connect(connectionURL, {useUnifiedTopology:true}, (err, client) => {
     // })
 
     // insert many
-    db.collection('tasks').insertMany([obj,obj1,obj2], (err, result) =>{
-        if (err) {
-            return console.log(err);
-        }
-        console.log(result.ops);
+    // db.collection('tasks').insertMany([obj,obj1,obj2], (err, result) => {
+    //     if(err)
+    //         return console.log(err)
+
+    //     console.log(result.ops);
+    // })
+
+    // find 
+    db.collection('tasks').find({ completed: false }).toArray((err, res) => {
+        const [ , second ] = res
+        console.log(second.description);
     })
 
 })
