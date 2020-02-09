@@ -35,9 +35,9 @@ MongoClient.connect(connectionURL, {useUnifiedTopology:true}, (err, client) => {
     // })
 
     // find 
-    db.collection('tasks').find({ completed: false }).toArray((err, res) => {
-        const [ , second ] = res
-        console.log(second.description);
+    db.collection('tasks').find({ completed: false }).count((err, res) => {
+        // const [ , second ] = res
+        console.log(res);
     })
 
 })
