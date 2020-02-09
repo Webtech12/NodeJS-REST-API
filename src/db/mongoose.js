@@ -25,7 +25,7 @@ mongoose.connect(`${connectionURL}/task-manager-api`, { useNewUrlParser: true, u
 
 // tasks model
 const Tasks = mongoose.model('Tasks',{
-    description: String,
+    description: {type:String, required: true},
     completed: Boolean
 })
 
