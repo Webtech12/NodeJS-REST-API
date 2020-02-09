@@ -49,7 +49,14 @@ MongoClient.connect(connectionURL, {useUnifiedTopology:true}, (err, client) => {
     // })
 
     // update collections
-    db.collection('tasks').updateOne({ _id: new ObjectID("5e3fdb6ba3ad8c2778d8f760") },
-        { $set: { description: "desc1 upd" } }).then(res => console.log(res)).catch(err => console.error(err))
+    // db.collection('tasks').updateOne({ _id: new ObjectID("5e3fdb6ba3ad8c2778d8f760") },
+    //     { $set: { description: "desc1 upd" } }).then(res => console.log(res)).catch(err => console.error(err))
+
+    db.collection('tasks').updateMany({
+        completed: false,
+    },
+        {
+            $set: { completed: true }
+        }).then(res => console.log(res)).catch(err => console.error(err))
 
 })
