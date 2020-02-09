@@ -34,10 +34,22 @@ MongoClient.connect(connectionURL, {useUnifiedTopology:true}, (err, client) => {
     //     console.log(result.ops);
     // })
 
-    // find 
-    db.collection('tasks').find({ completed: false }).count((err, res) => {
-        // const [ , second ] = res
-        console.log(res);
-    })
+    // find collections
+    // db.collection('tasks').findOne({ _id: new ObjectID("5e3fdb6ba3ad8c2778d8f762")}, (err, res) => {
+    //     if(err)
+    //         return console.log(err)
+
+    //     console.log(res);
+    // })
+    // db.collection('tasks').find({ completed: false}).toArray((errm, res) => {
+    //     if(err)
+    //         return console.log(err)
+
+    //     console.log(res);
+    // })
+
+    // update collections
+    db.collection('tasks').updateOne({ _id: new ObjectID("5e3fdb6ba3ad8c2778d8f760") },
+        { $set: { description: "desc1 upd" } }).then(res => console.log(res)).catch(err => console.error(err))
 
 })
