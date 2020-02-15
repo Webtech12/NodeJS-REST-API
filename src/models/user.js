@@ -26,15 +26,4 @@ const User = mongoose.model('User', {
     },
 })
 
-// instantiating objects
-// const me = new User({
-//     name : 'User A',
-//     age : 20,
-//     email : 'abc@gg.com',
-//     password : 'testing'
-// })
-
-
-
-
 module.exports = User
