@@ -18,5 +18,18 @@ app.use(userRoutes)
 app.use(taskRoutes)
 
 
+
+
+
+// const hashMake = async (params) => {
+//     const hasedData = await bcrypt.hash('password',8)
+//     console.log(hasedData)
+
+//     const isMatch = await bcrypt.compare('password', hasedData)
+//     console.log(isMatch)
+// }
+
+// hashMake()
+
 // starting server
 app.listen(port, () => console.log(`app listening on port ${port}`))
