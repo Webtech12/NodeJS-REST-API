@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^3.0.8",
+=======
+    "bcryptjs": "^2.4.3",
+>>>>>>> f6afed48351dc2f4f8ffa28b8e3b4f32dafcc308
     "express": "^4.17.1",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.11",
