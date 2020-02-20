@@ -31,8 +31,14 @@ const fetchById = async (...args) => {
 // general async update 
 const updateData = async (...args) => {
     try {
-        const updatedDocument = await args[0].findByIdAndUpdate(`${args[1]}`, args[2], { new: true, runValidators: true })
-        if (!updatedDocument) throw new Error('document not found')
+        const updates = Object.keys(args[2])
+        const updateDocument = await args[0].findById(`${args[1]}`)
+
+        if (!updateDocument) throw new Error('document not found')
+
+        updates.forEach((update) => updateDocument[update] = args[2][update])
+        const updatedDocument = await updateDocument.save()
+        
         return updatedDocument
     } catch (error) {
         throw new Error(error)
