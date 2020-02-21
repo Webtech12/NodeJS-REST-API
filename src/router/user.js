@@ -8,7 +8,8 @@ const router = new express.Router()
 router.post('/users/login', async (req, res) => {
     try {
         const user = await User.fetchByCredentials(req.body.email, req.body.password)
-        res.send(user)
+        const token = await user.generateAuthToken()
+        res.send({user, token})
     } catch (error) {
         res.status(400).send(error)
     }
@@ -18,7 +19,8 @@ router.post('/users/login', async (req, res) => {
 // users CRUD
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-    await Functions.postData(user).then(result => res.status(201).send(result)).catch(err => res.status(404).send(err.message))
+    const token = await user.generateAuthToken()
+    await Functions.postData(user).then(result => res.status(201).send({result, token})).catch(err => res.status(404).send(err.message))
 })
 router.get('/users', async (req, res) => {
     await Functions.fetchAll(User).then(result => res.status(200).send(result)).catch(err => res.status(500).send(err.message))
