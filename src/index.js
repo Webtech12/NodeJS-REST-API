@@ -10,6 +10,12 @@ const app = express()
 // defining ports
 const port = process.env.PORT || 3000
 
+// middleware
+app.use((req,res,next) => {
+    res.status(503).send('site is down') 
+})
+
+
 // pasring json
 app.use(express.json())
 
