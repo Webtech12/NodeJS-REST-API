@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../models/user')
 const Functions = require('../helper/functions')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 
 // login users
@@ -21,6 +22,9 @@ router.post('/users', async (req, res) => {
     const user = new User(req.body)
     const token = await user.generateAuthToken()
     await Functions.postData(user).then(result => res.status(201).send({result, token})).catch(err => res.status(404).send(err.message))
+})
+router.get('/user/me', auth, async (req, res) => {
+    await res.send(req.user)
 })
 router.get('/users', async (req, res) => {
     await Functions.fetchAll(User).then(result => res.status(200).send(result)).catch(err => res.status(500).send(err.message))
