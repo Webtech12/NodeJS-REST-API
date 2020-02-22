@@ -2,11 +2,12 @@ const express = require('express')
 const Task = require('../models/task')
 const Functions = require('../helper/functions')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 
 // tasks
-router.post('/tasks', async (req, res) => {
-    const task = new Task(req.body)
+router.post('/tasks', auth, async (req, res) => {
+    const task = new Task({...req.body, createdBy: req.user._id})
     await Functions.postData(task).then(result => res.status(201).send(result)).catch(err => res.status(404).send(err.message))
 })
 router.get('/tasks', async (req, res) => {
