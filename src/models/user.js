@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
-// model schema
+const Task = require('./task')
 
 
 // defining models
@@ -77,7 +76,7 @@ userSchema.statics.fetchByCredentials = async (email, password) => {
 
 
 
-
+// hash passwords
 
 userSchema.pre('save', async function(next) {
     
@@ -86,6 +85,15 @@ userSchema.pre('save', async function(next) {
     next()
   })
 
+
+// removing tasks when the user gets deleted
+userSchema.pre('remove', async function(next) {
+    
+    const user = this
+    await Task.deleteMany({ createdBy: user._id})
+
+    next()
+  })
 
 
 

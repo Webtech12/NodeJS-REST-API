@@ -3,7 +3,6 @@ const Task = require('../models/task')
 const Functions = require('../helper/functions')
 const router = new express.Router()
 const auth = require('../middleware/auth')
-const User = require('../models/user')
 
 
 // tasks
@@ -18,9 +17,8 @@ router.get('/tasks', auth, async (req, res) => {
 // users tasks
 router.get('/auth/tasks', auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user._id)
-        await user.populate('tasks').execPopulate()
-        res.status(200).send(user.tasks)
+        await req.user.populate('tasks').execPopulate()
+        res.status(200).send(req.user.tasks)
     } catch (error) {
         res.status(500).send()
     }
