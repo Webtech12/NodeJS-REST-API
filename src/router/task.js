@@ -23,7 +23,7 @@ router.get('/auth/tasks', auth, async (req, res) => {
     try {
         await req.user.populate({
             path: 'tasks',
-            match
+            match,
         }).execPopulate()
         res.status(200).send(req.user.tasks)
     } catch (error) {
