@@ -39,6 +39,13 @@ const userSchema = new mongoose.Schema({
 })
 
 
+userSchema.virtual('tasks',{
+    ref: 'Tasks',
+    localField: '_id',
+    foreignField: 'createdBy'
+})
+
+
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({_id: user._id.toString()}, 'abc')
@@ -69,9 +76,7 @@ userSchema.statics.fetchByCredentials = async (email, password) => {
 }
 
 
-// userSchema.virtual('tasks',{
 
-// })
 
 
 userSchema.pre('save', async function(next) {
