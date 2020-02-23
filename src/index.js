@@ -28,3 +28,15 @@ app.use(taskRoutes)
 
 // starting server
 app.listen(port, () => console.log(`app listening on port ${port}`))
+
+
+const Task = require('./models/task')
+
+const main = async () => {
+    const task = await Task.findById('5e511748cfee72244c771df4')
+    await task.populate('createdBy').execPopulate()
+    console.log(task.createdBy);
+}
+
+
+main()
