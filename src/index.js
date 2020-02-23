@@ -30,20 +30,20 @@ app.use(taskRoutes)
 app.listen(port, () => console.log(`app listening on port ${port}`))
 
 
-const Task = require('./models/task')
-const User = require('./models/user')
+// const Task = require('./models/task')
+// const User = require('./models/user')
 
-const main = async () => {
-    // const task = await Task.findById('5e511748cfee72244c771df4')
-    // await task.populate('createdBy').execPopulate()
-    // console.log(task.createdBy);
-
-
-    const user = await User.findById('5e51171bcfee72244c771df2')
-    await user.populate('tasks').execPopulate()
-    console.log(user.tasks);
-
-}
+// const main = async () => {
+//     // const task = await Task.findById('5e511748cfee72244c771df4')
+//     // await task.populate('createdBy').execPopulate()
+//     // console.log(task.createdBy);
 
 
-main()
+//     const user = await User.findById('5e51171bcfee72244c771df2')
+//     await user.populate('tasks').execPopulate()
+//     console.log(user.tasks);
+
+// }
+
+
+// main()
