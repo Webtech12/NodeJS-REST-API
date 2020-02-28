@@ -3,6 +3,7 @@ const User = require('../models/user')
 const Functions = require('../helper/functions')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const multer = require('multer')
 
 
 // login users
@@ -15,6 +16,32 @@ router.post('/users/login', async (req, res) => {
         res.status(400).send(error)
     }
 })
+
+
+
+
+// uploads conig
+const upload = multer({
+    dest: 'avatars',
+    limits:{
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb){
+        if(!file.originalname.endsWith('.pdf')) return cb(new Error('upload a pdf'))
+
+        cb(undefined, true)
+    }
+})
+
+// route
+router.post('/users/me/avatar', upload.single('avatar'),async (req, res) => {
+  res.status(200).send('POST request to the homepage')
+})
+
+
+
+
+
 
 // logout 1 user
 router.post('/users/logout', auth, async (req, res) => {
