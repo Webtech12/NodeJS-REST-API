@@ -22,20 +22,23 @@ router.post('/users/login', async (req, res) => {
 
 // uploads conig
 const upload = multer({
-    dest: 'avatars',
     limits:{
         fileSize: 1000000
     },
     fileFilter(req, file, cb){
-        if(!file.originalname.endsWith('.pdf')) return cb(new Error('upload a pdf'))
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) return cb(new Error('Only JPG/JPEG/PNG files allowed'))
 
         cb(undefined, true)
     }
 })
 
 // route
-router.post('/users/me/avatar', upload.single('avatar'),async (req, res) => {
-  res.status(200).send('POST request to the homepage')
+router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+    req.user.avatar = req.file.buffer
+    await req.user.save()
+    res.status(200).send()
+}, (error, req, res, next) => {
+    res.status(500).send({ error: error.message})
 })
 
 

@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema({
             if (validator.equals(value, 'password')) throw new Error("cannot save the word password")
         }
     },
+    avatar: {
+        type: Buffer
+    },
     tokens: [{
         token: {
             type: String, required: true,
