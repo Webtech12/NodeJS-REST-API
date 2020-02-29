@@ -20,7 +20,7 @@ router.post('/users/login', async (req, res) => {
 
 
 
-// uploads conig
+// uploads config
 const upload = multer({
     limits:{
         fileSize: 1000000
@@ -32,7 +32,7 @@ const upload = multer({
     }
 })
 
-// route
+// add image
 router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
     req.user.avatar = req.file.buffer
     await req.user.save()
@@ -41,6 +41,12 @@ router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) 
     res.status(500).send({ error: error.message})
 })
 
+// delete image
+router.delete('/users/me/avatar', auth, async (req, res) => {
+    req.user.avatar = undefined
+    await req.user.save()
+    res.status(200).send()
+})
 
 
 
